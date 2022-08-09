@@ -1,0 +1,41 @@
+﻿<div class="simple-form">
+
+    @if (JobCategoryId == 0)
+    {
+        <div class="table-responsive" style="max-height:300px;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Categorie</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody @key="jobCategories" class="@(Updating?"area-updating":String.Empty)">
+                    @foreach (var categorie in jobCategories)
+                    {
+                        <tr @key="categorie">
+                            <th>@categorie.JobCategoryId</th>
+                            <th>@categorie.JobCategoryName</th>
+                            <th>
+                                <span @onclick="()=>SelectCategorieAsync(categorie.JobCategoryId)">Edit</span>
+                                <span @onclick="()=>RemoveJobCategory(categorie.JobCategoryId)">Remove</span>
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <hr />
+    }
+
+    <div class="form-group">
+        <label for="movie-name">Job Category Name</label>
+        <input @bind="@JobCategory.JobCategoryName" type="text" class="form-control" id="movie-name" />
+    </div>
+    <div align="center">
+        <button @onclick="SaveJobCategory" class="btn btn-primary @(Updating?"area-updating":String.Empty)">Submit</button>
+        <button @onclick="ModalInstance.CancelAsync" class="btn btn-secondary">Close</button>
+    </div>
+</div>

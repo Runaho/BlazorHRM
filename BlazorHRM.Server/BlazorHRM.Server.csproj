@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.7">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="Models\" />
+		<None Remove="Microsoft.EntityFrameworkCore" />
+		<None Remove="Migrations\" />
+		<None Remove="Microsoft.EntityFrameworkCore.Tools" />
+		<None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
+		<None Remove="Microsoft.EntityFrameworkCore.SqlServer.Design" />
+		<None Remove="Pomelo.EntityFrameworkCore.MySql" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Models\" />
+		<Folder Include="Migrations\" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\BlazorHRM.Shared\BlazorHRM.Shared.csproj">
+			<GlobalPropertiesToRemove>
+			</GlobalPropertiesToRemove>
+		</ProjectReference>
+	</ItemGroup>
+</Project>

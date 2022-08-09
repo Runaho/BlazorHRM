@@ -1,0 +1,170 @@
+﻿@page "/employeeedit"
+@page "/employeeedit/{EmployeeId}"
+
+<section class="container">
+    @if (Saved == null)
+    {
+        <h1 class="page-title">Details for @Employee.FirstName @Employee.LastName</h1>
+        <EditForm Model="@Employee" OnValidSubmit="@ValidSubmit">
+
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="row">
+                <div class="form-group col">
+                    <label for="lastName">Last name: <ValidationMessage style="color:red;" For="@(()=>Employee.LastName)" /> </label>
+                    <InputText id="lastName" @bind-Value="@Employee.LastName" class="form-control col-sm-8" placeholder="Enter last name"></InputText>
+
+                </div>
+
+                <div class="form-group col">
+                    <label for="firstName">First name: </label>
+                    <InputText id="firstName" class="form-control col-sm-8" @bind-Value="@Employee.FirstName" placeholder="Enter first name"></InputText>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col">
+                    <label for="email">Email: </label>
+                    <InputText id="email" class="form-control col-sm-8" @bind-Value="@Employee.Email" placeholder="Enter email"></InputText>
+                </div>
+
+                <div class="form-group col">
+                    <label for="phonenumber">Phone number: </label>
+                    <InputText id="phonenumber" class="form-control col-sm-8" @bind-Value="@Employee.PhoneNumber" placeholder="Enter phone number"></InputText>
+                </div>
+            </div>
+            <hr />
+
+            <div class="row">
+
+                <div class="form-group col">
+                    <label for="birthdate">Birthdate: </label>
+                    <InputDate id="birthdate" class="form-control col-sm-8" @bind-Value="@Employee.BirthDate" placeholder="Enter birthdate"></InputDate>
+                </div>
+
+
+                <div class="form-group col">
+                    <label for="street">Street: </label>
+                    <InputText id="street" class="form-control col-sm-8" @bind-Value="@Employee.Street" placeholder="Enter street"></InputText>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="form-group col">
+                    <label for="zip">Zip code: </label>
+                    <InputText id="zip" class="form-control col-sm-8" @bind-Value="@Employee.Zip" placeholder="Enter zip code"></InputText>
+
+                </div>
+
+                <div class="form-group col">
+                    <label for="city">City: </label>
+                    <InputText id="city" class="form-control col-sm-8" @bind-Value="@Employee.City" placeholder="Enter city"></InputText>
+
+                </div>
+
+                <div class="form-group col">
+                    <label for="country">Country: </label>
+                    <InputSelect id="country" class="form-control col-sm-8" @bind-Value="@SelectedCountry">
+                        <option value="">Select</option>
+                        @foreach (var country in Countries)
+                            {
+                            <option value="@country.CountryId">@country.Name</option>
+                            }
+                    </InputSelect>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+
+                <div class="form-group col">
+                    <label for="longitude">Longitude: </label>
+                    <InputNumber id="longitude" class="form-control col-sm-8" @bind-Value="@Employee.Longitude"></InputNumber>
+                </div>
+
+                <div class="form-group col">
+                    <label for="latitude">Latitude: </label>
+                    <InputNumber id="latitude" class="form-control col-sm-8" @bind-Value="@Employee.Latitude"></InputNumber>
+                </div>
+
+                <div class="form-group col">
+                    <label for="smoker">
+                        <InputCheckbox id="smoker" @bind-Value="@Employee.Smoker"></InputCheckbox>
+                        &nbsp;Smoker
+                    </label>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="form-group col">
+                    <label for="jobcategory">Job category: <span @onclick="ShowAddJobCategoryModal"><i class="fa-solid fa-pen-to-square"></i></span>  </label>
+                    <InputSelect id="jobcategory" class="form-control col-sm-8" @bind-Value="@SelectedJobCategory">
+                        <option value="">Select</option>
+                        @foreach (var jobCategory in JobCategories)
+                            {
+                            <option value="@jobCategory.JobCategoryId">@jobCategory.JobCategoryName</option>
+                            }
+                    </InputSelect>
+                </div>
+
+                <div class="form-group col">
+                    <label for="gender">Gender: </label>
+                    <InputSelect id="gender" class="form-control col-sm-8" @bind-Value=@Employee.Gender>
+                        <option value="@(Gender.Male)">Male</option>
+                        <option value="@(Gender.Female)">Female</option>
+                        <option value="@(Gender.Other)">Other</option>
+                    </InputSelect>
+                </div>
+
+                <div class="form-group col">
+                    <label for="maritalstatus">Marital status: </label>
+                    <InputSelect id="maritalstatus" class="form-control col-sm-8" @bind-Value=@Employee.MaritalStatus>
+                        <option value="@(MaritalStatus.Single)">Single</option>
+                        <option value="@(MaritalStatus.Married)">Married</option>
+                        <option value="@(MaritalStatus.Other)">Other</option>
+                    </InputSelect>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="form-group col">
+                    <label for="joineddate">Joined on: </label>
+                    <InputDate id="joineddate" class="form-control col-sm-8" @bind-Value="@Employee.JoinedDate" placeholder="Enter date joined"></InputDate>
+                </div>
+
+                <div class="form-group col">
+                    <label for="exitdate">Left on: </label>
+                    <InputDate id="exitdate" class="form-control col-sm-8" @bind-Value="@Employee.ExitDate" placeholder="Enter exit date"></InputDate>
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="comment">Comment: </label>
+                <InputTextArea id="comment" class="form-control col-sm-8" @bind-Value="@Employee.Comment" placeholder="Enter comment"></InputTextArea>
+            </div>
+
+            <div class="row">
+
+                <div class="form-group col-3">
+                    <input type="submit" class="btn btn-primary edit-btn" value="Save Employee" />
+                </div>
+
+                @if (Employee.EmployeeId > 0)
+                {
+                    <div class="form-group col-3">
+                        <a class="btn btn-danger" @onclick="@DeleteEmployee">Delete this employee.</a>
+                    </div>
+                }
+            </div>
+
+        </EditForm>
+
+    }
+    else
+    {
+        <div class="form-group">
+            <div class="alert @StatusClass">@Message</div>
+        </div>
+    }
+</section>
